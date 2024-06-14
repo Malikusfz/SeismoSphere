@@ -1,0 +1,92 @@
+/* Import default nprogress styles */
+@import 'nprogress/nprogress.css';
+
+/* Customize the nprogress bar */
+#nprogress .bar {
+  background: #29d;
+  height: 3px;
+}
+
+/* Customize the nprogress spinner */
+#nprogress .spinner-icon {
+  display: none;
+}
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  background-color: #f0f2f5;
+}
+
+.container {
+  padding: 20px;
+}
+
+.earthquake-map-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.map {
+  height: 600px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.earthquake-table-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.earthquake-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+
+.earthquake-table thead {
+  background-color: #343a40;
+  color: white;
+}
+
+.earthquake-table th, .earthquake-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.earthquake-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.earthquake-table tr:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+.custom-popup .popup-content {
+  max-width: 200px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.custom-popup .popup-content h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.custom-popup .popup-content div {
+  margin-bottom: 5px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
