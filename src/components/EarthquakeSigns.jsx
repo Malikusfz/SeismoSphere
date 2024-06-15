@@ -1,7 +1,16 @@
 import React from 'react';
 import {
-  Card, CardGroup, ListGroup, ListGroupItem, CardHeader, Fade,
-} from 'react-bootstrap';
+  Box,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Fade,
+  Card,
+  CardHeader,
+  CardBody,
+  StackDivider,
+} from '@chakra-ui/react';
 
 const getStageItems = (stage) => {
   switch (stage) {
@@ -18,26 +27,28 @@ const getStageItems = (stage) => {
 
 function EarthquakeSigns() {
   return (
-    <Fade appear in>
-      <Card className="my-2">
-        <Card.Body>
-          <Card.Title tag="h5" className="text-center">
-            Tanda Tanda Gempa
-          </Card.Title>
-          <CardGroup>
-            {['Sebelum Gempa', 'Selama Gempa', 'Setelah Gempa'].map((stage) => (
-              <Card key={stage} style={{ width: '18rem' }}>
-                <CardHeader tag="h5">{stage}</CardHeader>
-                <ListGroup flush>
+    <Fade in>
+      <Box my="2" p="4" bg="white" shadow="md" borderRadius="md">
+        <Heading as="h5" size="md" textAlign="center" mb="4">
+          Tanda Tanda Gempa
+        </Heading>
+        <HStack spacing="4" justify="center">
+          {['Sebelum Gempa', 'Selama Gempa', 'Setelah Gempa'].map((stage) => (
+            <Card key={stage} maxW="sm">
+              <CardHeader>
+                <Heading size="md">{stage}</Heading>
+              </CardHeader>
+              <CardBody>
+                <VStack divider={<StackDivider />} spacing="4">
                   {getStageItems(stage).map((item) => (
-                    <ListGroupItem key={item}>{item}</ListGroupItem>
+                    <Text key={item}>{item}</Text>
                   ))}
-                </ListGroup>
-              </Card>
-            ))}
-          </CardGroup>
-        </Card.Body>
-      </Card>
+                </VStack>
+              </CardBody>
+            </Card>
+          ))}
+        </HStack>
+      </Box>
     </Fade>
   );
 }

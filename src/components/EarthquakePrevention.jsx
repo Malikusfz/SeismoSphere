@@ -1,7 +1,14 @@
 import React from 'react';
 import {
-  Card, CardGroup, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Fade,
-} from 'react-bootstrap';
+  Box,
+  Image,
+  Heading,
+  Text,
+  SimpleGrid,
+  Fade,
+  Card,
+  CardBody,
+} from '@chakra-ui/react';
 import DropImg from '../images/Drop.png';
 import CoverImg from '../images/Cover.png';
 import HoldOnImg from '../images/HoldOn.png';
@@ -47,28 +54,26 @@ const getActionText = (action) => {
 
 function EarthquakePrevention() {
   return (
-    <Fade appear in>
-      <Card className="my-2">
-        <Card.Body>
-          <Card.Title className="text-center">
-            Penanggulangan Gempa
-          </Card.Title>
-          <CardGroup>
-            {['Drop', 'Cover', 'Hold On'].map((action) => (
-              <Card key={action} style={{ width: '18rem' }}>
-                <CardImg variant="top" src={getActionImage(action)} alt={action} />
-                <CardBody>
-                  <CardTitle>{action}</CardTitle>
-                  <CardSubtitle className="mb-2 text-muted">
-                    {getActionSubtitle(action)}
-                  </CardSubtitle>
-                  <CardText>{getActionText(action)}</CardText>
-                </CardBody>
-              </Card>
-            ))}
-          </CardGroup>
-        </Card.Body>
-      </Card>
+    <Fade in>
+      <Box my="2" p="4" boxShadow="md" borderRadius="md">
+        <Heading as="h5" size="lg" textAlign="center" mb="4">
+          Penanggulangan Gempa
+        </Heading>
+        <SimpleGrid columns={[1, null, 3]} spacing="4">
+          {['Drop', 'Cover', 'Hold On'].map((action) => (
+            <Card key={action} boxShadow="md" borderRadius="md" overflow="hidden">
+              <Image src={getActionImage(action)} alt={action} />
+              <CardBody>
+                <Heading as="h6" size="md" mb="2">{action}</Heading>
+                <Text fontSize="sm" color="gray.500" mb="2">
+                  {getActionSubtitle(action)}
+                </Text>
+                <Text>{getActionText(action)}</Text>
+              </CardBody>
+            </Card>
+          ))}
+        </SimpleGrid>
+      </Box>
     </Fade>
   );
 }
