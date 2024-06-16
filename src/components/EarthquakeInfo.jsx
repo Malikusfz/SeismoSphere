@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  Stack,
-  StackDivider,
+  List,
+  ListItem,
+  ListIcon,
   Box,
   Heading,
   Text,
+  HStack,
 } from '@chakra-ui/react';
+import {
+  FaCalendarAlt,
+  FaClock,
+  FaRuler,
+  FaMapMarkerAlt,
+} from 'react-icons/fa';
+
+const colorPalette = {
+  background: '#FAFAFA',
+  secondary: '#C7EEFF',
+  highlight: '#0077C0',
+  accent: '#1D242B',
+};
 
 function EarthquakeInfo() {
   const [latestEarthquake, setLatestEarthquake] = useState(null);
@@ -50,55 +62,58 @@ function EarthquakeInfo() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <Heading size="md">Gempa Bumi Terkini</Heading>
-      </CardHeader>
-      <CardBody>
-        <Stack divider={<StackDivider />} spacing="4">
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Tanggal :
-            </Heading>
-            <Text pt="1" fontSize="md">
-              {latestEarthquake.Tanggal}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Waktu :
-            </Heading>
-            <Text pt="1" fontSize="md">
-              {latestEarthquake.Jam}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Magnitude :
-            </Heading>
-            <Text pt="1" fontSize="md">
-              {latestEarthquake.Magnitude}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Kedalaman :
-            </Heading>
-            <Text pt="1" fontSize="md">
-              {latestEarthquake.Kedalaman}
-            </Text>
-          </Box>
-          <Box>
-            <Heading size="xs" textTransform="uppercase">
-              Wilayah :
-            </Heading>
-            <Text pt="1" fontSize="md">
-              {latestEarthquake.Wilayah}
-            </Text>
-          </Box>
-        </Stack>
-      </CardBody>
-    </Card>
+    <Box bg={colorPalette.background}>
+      <Heading
+        size="m"
+        mb="4"
+        textAlign="center"
+        color={colorPalette.highlight}
+      >
+        Gempa Bumi Terkini
+      </Heading>
+      <List spacing={3}>
+        <ListItem>
+          <HStack>
+            <ListIcon as={FaCalendarAlt} color="teal.500" />
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                {latestEarthquake.Tanggal}
+              </Heading>
+            </Box>
+          </HStack>
+        </ListItem>
+        <ListItem>
+          <HStack>
+            <ListIcon as={FaClock} color="teal.500" />
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                {latestEarthquake.Jam}
+              </Heading>
+            </Box>
+          </HStack>
+        </ListItem>
+        <ListItem>
+          <HStack>
+            <ListIcon as={FaRuler} color="teal.500" />
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                {latestEarthquake.Magnitude}
+              </Heading>
+            </Box>
+          </HStack>
+        </ListItem>
+        <ListItem>
+          <HStack>
+            <ListIcon as={FaMapMarkerAlt} color="teal.500" />
+            <Box>
+              <Heading size="xs" textTransform="uppercase">
+                {latestEarthquake.Wilayah}
+              </Heading>
+            </Box>
+          </HStack>
+        </ListItem>
+      </List>
+    </Box>
   );
 }
 

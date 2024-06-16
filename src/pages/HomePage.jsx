@@ -12,12 +12,23 @@ import {
   Stack,
   useMediaQuery,
 } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import Seismosphere from '../images/Seismosphere.png';
 import VulkanikImg from '../images/GempaVulkanik.png';
 import TektonikImg from '../images/GempaTektonik.png';
 import ReruntuhanImg from '../images/GempaReruntuhan.png';
 import GempaImg from '../images/Gempa.png';
 import EarthquakeInfo from '../components/EarthquakeInfo';
+import EarthquakePrevention from '../components/EarthquakePrevention';
+
+const MotionBox = motion(Box);
+
+const colorPalette = {
+  background: '#FAFAFA',
+  secondary: '#C7EEFF',
+  highlight: '#0077C0',
+  accent: '#1D242B',
+};
 
 function HomePage() {
   const [isLargeThan62] = useMediaQuery('(min-width: 62em)');
@@ -30,7 +41,7 @@ function HomePage() {
   return (
     <>
       <Flex
-        bg="white"
+        bg={colorPalette.background}
         alignItems="center"
         w="full"
         px={isLargeThan62 ? '16' : '6'}
@@ -52,8 +63,8 @@ function HomePage() {
             fontSize={isLargeThan62 ? '5xl' : '4xl'} // eslint-disable-line spellcheck/spell-checker
             fontWeight="bold"
             mb="4"
+            color={colorPalette.highlight}
           >
-            {' '}
             SeismoSphere
           </Text>
 
@@ -84,11 +95,19 @@ function HomePage() {
         </Flex>
       </Flex>
 
-      <Box bg="#FAFAFA" color="#1D242B" mt="10px" ref={EarthquakeInfoRef}>
-        <Box as="main" py="20px">
-          <SimpleGrid columns={[1, null, 2]} spacing="10px">
-            <Card>
-              <CardBody>
+      <Box
+        bg={colorPalette.background}
+        color={colorPalette.accent}
+        ref={EarthquakeInfoRef}
+      >
+        <Box as="main" bg={colorPalette.background} p={2}>
+          <SimpleGrid columns={[1, null, 2]} spacing="20px">
+            <MotionBox
+              as={Card}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <CardBody bg={colorPalette.background}>
                 <Image src={GempaImg} alt="Gempa" borderRadius="lg" />
                 <Stack mt="6" spacing="3">
                   <Heading size="md">Gempa</Heading>
@@ -98,22 +117,61 @@ function HomePage() {
                   </Text>
                 </Stack>
               </CardBody>
-            </Card>
+            </MotionBox>
 
-            <Card>
-              <EarthquakeInfo />
-            </Card>
+            <Flex flexDirection="column" gap="20px">
+              <MotionBox
+                as={Card}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <EarthquakeInfo />
+              </MotionBox>
+
+              <MotionBox
+                as={Card}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <EarthquakePrevention />
+              </MotionBox>
+            </Flex>
           </SimpleGrid>
 
-          <Box py="20px" color="#1D242B">
-            <Card>
+          <Box color={colorPalette.accent} my="30px">
+            <Card bg={colorPalette.background}>
               <CardBody>
-                <Heading size="md" textAlign="center">
+                <Heading
+                  size="m"
+                  textAlign="center"
+                  color={colorPalette.highlight}
+                >
                   Jenis Jenis Gempa
                 </Heading>
                 <SimpleGrid columns={[1, null, 3]} spacing="20px" mt="4">
-                  <Card>
-                    <Image alt="Gempa Tektonik" src={TektonikImg} />
+                  <MotionBox
+                    as={Card}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Box
+                      position="relative"
+                      width="80%"
+                      paddingTop="45%"
+                      margin="20px auto 0"
+                      overflow="hidden"
+                    >
+                      <Image
+                        alt="Gempa Tektonik"
+                        src={TektonikImg}
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                      />
+                    </Box>
                     <CardBody>
                       <Heading size="sm">Gempa Tektonik</Heading>
                       <Text>
@@ -122,9 +180,30 @@ function HomePage() {
                         sering kali paling merusak.
                       </Text>
                     </CardBody>
-                  </Card>
-                  <Card>
-                    <Image alt="Gempa Vulkanik" src={VulkanikImg} />
+                  </MotionBox>
+                  <MotionBox
+                    as={Card}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Box
+                      position="relative"
+                      width="80%"
+                      paddingTop="45%"
+                      margin="20px auto 0"
+                      overflow="hidden"
+                    >
+                      <Image
+                        alt="Gempa Vulkanik"
+                        src={VulkanikImg}
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                      />
+                    </Box>
                     <CardBody>
                       <Heading size="sm">Gempa Vulkanik</Heading>
                       <Text>
@@ -133,9 +212,30 @@ function HomePage() {
                         bumi.
                       </Text>
                     </CardBody>
-                  </Card>
-                  <Card>
-                    <Image alt="Gempa Reruntuhan" src={ReruntuhanImg} />
+                  </MotionBox>
+                  <MotionBox
+                    as={Card}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Box
+                      position="relative"
+                      width="80%"
+                      paddingTop="45%"
+                      margin="20px auto 0"
+                      overflow="hidden"
+                    >
+                      <Image
+                        alt="Gempa Reruntuhan"
+                        src={ReruntuhanImg}
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                      />
+                    </Box>
                     <CardBody>
                       <Heading size="sm">Gempa Reruntuhan</Heading>
                       <Text>
@@ -144,7 +244,7 @@ function HomePage() {
                         dan lokal.
                       </Text>
                     </CardBody>
-                  </Card>
+                  </MotionBox>
                 </SimpleGrid>
               </CardBody>
             </Card>
