@@ -1,16 +1,37 @@
 import React from 'react';
 import {
-  Card, CardGroup, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Fade,
-} from 'react-bootstrap';
+  Box,
+  Image,
+  Heading,
+  Text,
+  SimpleGrid,
+  Fade,
+  Card,
+  CardBody,
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import DropImg from '../../Public/images/Drop.png';
+import CoverImg from '../../Public/images/Cover.png';
+import HoldOnImg from '../../Public/images/HoldOn.png';
+
+const MotionBox = motion(Box);
+const MotionCard = motion(Card);
+
+const colorPalette = {
+  background: '#FAFAFA',
+  secondary: '#C7EEFF',
+  highlight: '#0077C0',
+  accent: '#1D242B',
+};
 
 const getActionImage = (action) => {
   switch (action) {
     case 'Drop':
-      return '/images/Drop.png';
+      return DropImg;
     case 'Cover':
-      return '/images/Cover.png';
+      return CoverImg;
     case 'Hold On':
-      return '/images/HoldOn.png';
+      return HoldOnImg;
     default:
       return '';
   }
@@ -29,43 +50,49 @@ const getActionSubtitle = (action) => {
   }
 };
 
-const getActionText = (action) => {
-  switch (action) {
-    case 'Drop':
-      return 'Ini membantu Anda mengurangi risiko jatuh selama gempa, yang bisa menyebabkan cedera.';
-    case 'Cover':
-      return 'Berlindung di bawah meja atau furnitur yang kokoh. Jika tidak ada meja atau furnitur, gunakan lengan Anda untuk melindungi kepala dan leher dan cari perlindungan di dekat dinding dalam jauhi jendela, kaca, atau benda yang dapat jatuh.';
-    case 'Hold On':
-      return 'Menggenggam furnitur membantu menjaga perlindungan Anda tetap stabil di atas Anda. Jika Anda tidak berada di bawah furnitur, tetap di tempat dan melindungi kepala dan leher meminimalkan risiko bergerak ke daerah yang lebih berbahaya.';
-    default:
-      return '';
-  }
-};
-
 function EarthquakePrevention() {
   return (
-    <Fade appear in>
-      <Card className="my-2">
-        <Card.Body>
-          <Card.Title className="text-center">
-            Penanggulangan Gempa
-          </Card.Title>
-          <CardGroup>
-            {['Drop', 'Cover', 'Hold On'].map((action) => (
-              <Card key={action} style={{ width: '18rem' }}>
-                <CardImg variant="top" src={getActionImage(action)} alt={action} />
-                <CardBody>
-                  <CardTitle>{action}</CardTitle>
-                  <CardSubtitle className="mb-2 text-muted">
-                    {getActionSubtitle(action)}
-                  </CardSubtitle>
-                  <CardText>{getActionText(action)}</CardText>
-                </CardBody>
-              </Card>
-            ))}
-          </CardGroup>
-        </Card.Body>
-      </Card>
+    <Fade in>
+      <MotionBox
+        p="4"
+        bg={colorPalette.background}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <Heading
+          as="h5"
+          size="lg"
+          textAlign="center"
+          mb="4"
+          color={colorPalette.highlight}
+        >
+          Penanggulangan Gempa
+        </Heading>
+        <SimpleGrid columns={[1, null, 3]} spacing="4">
+          {['Drop', 'Cover', 'Hold On'].map((action) => (
+            <MotionCard
+              key={action}
+              boxShadow="md"
+              borderRadius="md"
+              overflow="hidden"
+              color={colorPalette.accent}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Image src={getActionImage(action)} alt={action} />
+              <CardBody>
+                <Heading as="h6" size="md" mb="2">
+                  {action}
+                </Heading>
+                <Text fontSize="sm" color={colorPalette.accent} mb="2">
+                  {getActionSubtitle(action)}
+                </Text>
+              </CardBody>
+            </MotionCard>
+          ))}
+        </SimpleGrid>
+      </MotionBox>
     </Fade>
   );
 }
