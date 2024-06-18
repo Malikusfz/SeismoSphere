@@ -13,6 +13,7 @@ import {
 import {
   FaClock, FaCalendarAlt, FaMapMarkerAlt, FaRulerVertical,
 } from 'react-icons/fa';
+import { act } from 'react-dom/test-utils';
 import CenterMapOnPopupOpen from './CenterMapOnPopupOpen';
 import MapControl from './MapControl';
 import Legend from './Legend';
@@ -60,12 +61,16 @@ function EarthquakeMap() {
     try {
       nprogress.start();
       const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json');
-      setEarthquakes(response.data.Infogempa.gempa);
+      act(() => {
+        setEarthquakes(response.data.Infogempa.gempa);
+      });
       localStorage.setItem('earthquakes', JSON.stringify(response.data.Infogempa.gempa));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
-      setLoading(false);
+      act(() => {
+        setLoading(false);
+      });
       nprogress.done();
     }
   };

@@ -2,6 +2,7 @@ module.exports = {
     env: {
         browser: true,
         es2021: true,
+        jest: true, // Add jest environment
     },
     extends: [
         'plugin:react/recommended',
@@ -27,7 +28,12 @@ module.exports = {
         'import/no-extraneous-dependencies': [
             'error',
             {
-                devDependencies: ['**/*.test.js', '**/*.spec.js', '**/test/**'],
+                devDependencies: [
+                    '**/*.test.js',
+                    '**/*.spec.js',
+                    '**/test/**',
+                    'src/components/**/*.test.jsx', // Include test files in components folder
+                ],
                 optionalDependencies: false,
                 peerDependencies: false,
             },

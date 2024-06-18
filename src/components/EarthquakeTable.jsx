@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
-  Table, Tbody, Td, Th, Thead, Tr, Spinner, Box, Badge, HStack,
+  Box, Badge, HStack, Spinner, Table, Tbody, Td, Th, Thead, Tr, VStack, Text, useBreakpointValue, Flex, Icon,
 } from '@chakra-ui/react';
-import { BsTsunami } from 'react-icons/bs';
+import {
+  BsTsunami, BsCalendar, BsClock, BsGeoAlt, BsLayersHalf, BsGraphUp,
+} from 'react-icons/bs';
 
 const getColor = (magnitude) => {
   if (magnitude >= 7) {
@@ -52,6 +54,8 @@ function EarthquakeTable() {
     accent: '#1D242B',
   };
 
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   return (
     <Box p={4}>
       {loading ? (
@@ -59,37 +63,85 @@ function EarthquakeTable() {
           <Spinner size="xl" color={colorPalette.accent} label="Loading..." />
         </Box>
       ) : (
-        <Table variant="simple" size="sm">
-          <Thead bg={colorPalette.secondary}>
-            <Tr>
-              <Th color={colorPalette.accent} textAlign="center">Tanggal</Th>
-              <Th color={colorPalette.accent} textAlign="center">Waktu</Th>
-              <Th color={colorPalette.accent} textAlign="center">Magnitude</Th>
-              <Th color={colorPalette.accent} textAlign="center">Kedalaman</Th>
-              <Th color={colorPalette.accent} textAlign="center">Lokasi</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {earthquakes.map((gempa) => (
-              <Tr key={gempa.DateTime}>
-                <Td color={colorPalette.accent} textAlign="center">{gempa.Tanggal}</Td>
-                <Td color={colorPalette.accent} textAlign="center">{gempa.Jam}</Td>
-                <Td textAlign="center">
-                  <HStack justify="center">
-                    <Badge style={{ backgroundColor: getColor(gempa.Magnitude), color: 'white' }}>
-                      {gempa.Magnitude}
-                    </Badge>
-                    {gempa.Potensi === 'Tsunami' && (
-                      <BsTsunami color={colorPalette.highlight} size="20px" />
-                    )}
+        <>
+          {isMobile ? (
+            <VStack spacing={4} align="stretch">
+              {earthquakes.map((gempa) => (
+                <Box
+                  key={gempa.DateTime}
+                  p={4}
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  bg={colorPalette.secondary}
+                  shadow="md"
+                >
+                  <Flex justifyContent="space-between" alignItems="center">
+                    <HStack spacing={2}>
+                      <Icon as={BsCalendar} color={colorPalette.accent} />
+                      <Text color={colorPalette.accent} fontWeight="bold">{gempa.Tanggal}</Text>
+                    </HStack>
+                    <HStack spacing={2}>
+                      <Icon as={BsClock} color={colorPalette.accent} />
+                      <Text color={colorPalette.accent}>{gempa.Jam}</Text>
+                    </HStack>
+                  </Flex>
+                  <Flex justifyContent="space-between" alignItems="center" mt={2}>
+                    <HStack spacing={2}>
+                      <Icon as={BsGraphUp} color={colorPalette.accent} />
+                      <Badge style={{ backgroundColor: getColor(gempa.Magnitude), color: 'white' }}>
+                        {gempa.Magnitude}
+                      </Badge>
+                      {gempa.Potensi === 'Tsunami' && (
+                        <BsTsunami color={colorPalette.highlight} size="20px" />
+                      )}
+                    </HStack>
+                    <HStack spacing={2}>
+                      <Icon as={BsLayersHalf} color={colorPalette.accent} />
+                      <Text color={colorPalette.accent}>{gempa.Kedalaman}</Text>
+                    </HStack>
+                  </Flex>
+                  <HStack spacing={2} mt={2}>
+                    <Icon as={BsGeoAlt} color={colorPalette.accent} />
+                    <Text color={colorPalette.accent}>{gempa.Wilayah}</Text>
                   </HStack>
-                </Td>
-                <Td color={colorPalette.accent} textAlign="center">{gempa.Kedalaman}</Td>
-                <Td color={colorPalette.accent} textAlign="center">{gempa.Wilayah}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
+                </Box>
+              ))}
+            </VStack>
+          ) : (
+            <Table variant="simple" size="sm">
+              <Thead bg={colorPalette.secondary}>
+                <Tr>
+                  <Th color={colorPalette.accent} textAlign="center">Tanggal</Th>
+                  <Th color={colorPalette.accent} textAlign="center">Waktu</Th>
+                  <Th color={colorPalette.accent} textAlign="center">Magnitude</Th>
+                  <Th color={colorPalette.accent} textAlign="center">Kedalaman</Th>
+                  <Th color={colorPalette.accent} textAlign="center">Lokasi</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {earthquakes.map((gempa) => (
+                  <Tr key={gempa.DateTime}>
+                    <Td color={colorPalette.accent} textAlign="center">{gempa.Tanggal}</Td>
+                    <Td color={colorPalette.accent} textAlign="center">{gempa.Jam}</Td>
+                    <Td textAlign="center">
+                      <HStack justify="center">
+                        <Badge style={{ backgroundColor: getColor(gempa.Magnitude), color: 'white' }}>
+                          {gempa.Magnitude}
+                        </Badge>
+                        {gempa.Potensi === 'Tsunami' && (
+                          <BsTsunami color={colorPalette.highlight} size="20px" />
+                        )}
+                      </HStack>
+                    </Td>
+                    <Td color={colorPalette.accent} textAlign="center">{gempa.Kedalaman}</Td>
+                    <Td color={colorPalette.accent} textAlign="center">{gempa.Wilayah}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          )}
+        </>
       )}
     </Box>
   );

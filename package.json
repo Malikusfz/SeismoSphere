@@ -23,6 +23,7 @@
     "bootstrap": "^5.3.3",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.2.10",
+    "jest-fetch-mock": "^3.0.3",
     "leaflet": "^1.9.4",
     "lodash.debounce": "^4.0.8",
     "nprogress": "^0.2.0",

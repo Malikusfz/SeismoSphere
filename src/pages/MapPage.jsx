@@ -11,8 +11,8 @@ function MapPage() {
       maxW="1200px"
       mx="auto"
       borderRadius="md"
-      mt={2}
-      mb={2}
+      mt={4}
+      mb={4}
       border="1px"
       borderColor="gray.200"
       boxShadow="sm"
