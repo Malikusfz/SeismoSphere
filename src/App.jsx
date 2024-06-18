@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -7,6 +8,7 @@ import HeaderNav from './components/HeaderNav';
 import AboutUsPage from './pages/AboutUsPage';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import ArticlePage from './pages/ArticlePage';
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/map" element={<MapPage />} />
             <Route path="/about" element={<AboutUsPage />} />
+            <Route path="/article" element={<ArticlePage />} />
           </Routes>
         </div>
         <Footer />

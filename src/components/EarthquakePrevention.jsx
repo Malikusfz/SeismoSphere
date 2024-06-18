@@ -13,7 +13,7 @@ const getActionImage = (action) => {
     case 'Cover':
       return CoverImg;
     case 'Hold On':
-      return HoldOnImg;
+      return HoldOnImg; 
     default:
       return '';
   }

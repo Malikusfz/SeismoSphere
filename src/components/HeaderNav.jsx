@@ -44,6 +44,9 @@ function HeaderNav() {
           <Link as={RouterLink} to="/about" fontWeight="bold" color={colorPalette.accent} _hover={{ color: colorPalette.highlight }}>
             About Us
           </Link>
+          <Link as={RouterLink} to="/article" fontWeight="bold" color={colorPalette.accent} _hover={{ color: colorPalette.highlight }}>
+            Article
+          </Link>
         </HStack>
         <IconButton
           aria-label="Menu"
@@ -70,6 +73,9 @@ function HeaderNav() {
               </Link>
               <Link as={RouterLink} to="/about" onClick={onClose} fontWeight="bold" color={colorPalette.accent} _hover={{ color: colorPalette.highlight }}>
                 About Us
+              </Link>
+              <Link as={RouterLink} to="/article" onClick={onClose} fontWeight="bold" color={colorPalette.accent} _hover={{ color: colorPalette.highlight }}>
+                Article
               </Link>
             </VStack>
           </DrawerBody>

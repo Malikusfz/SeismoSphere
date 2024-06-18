@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useEffect, useState, useRef } from 'react';
 import {
   MapContainer, TileLayer, Marker, Popup,

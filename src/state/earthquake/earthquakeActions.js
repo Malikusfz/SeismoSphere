@@ -1,3 +1,5 @@
+// eslint-disable-next-line spellcheck/spell-checker
+/* eslint-disable linebreak-style */
 export const SET_SELECTED_EARTHQUAKE = 'SET_SELECTED_EARTHQUAKE';
 export const SET_HOVERED_EARTHQUAKE = 'SET_HOVERED_EARTHQUAKE';
 
