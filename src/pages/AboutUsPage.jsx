@@ -5,6 +5,7 @@ import {
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import Rina from '../../Public/images/Profile/Rina.jpg';
 import Faza from '../../Public/images/Profile/Malikus.jpeg';
+import Viki from '../../Public/images/Profile/Viki.jpg';
 
 const colorPalette = {
   background: '#FAFAFA',
@@ -31,7 +32,7 @@ const teamMembers = [
   {
     name: 'Bagus Viki Amalindo',
     job: 'FrontEnd',
-    photo: '../../Public/images/Profile/Viki.jpg',
+    photo: Viki,
     linkedin: 'https://www.linkedin.com/in/bagus-viki-amalindo-903966268/',
     github: 'https://github.com/amalindouser ',
   },
