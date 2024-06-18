@@ -3,6 +3,8 @@ import {
   Box, Flex, Heading, Text, Link, Image, HStack, Divider,
 } from '@chakra-ui/react';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import Rina from '../../Public/images/Profile/Rina.jpg';
+import Faza from '../../Public/images/Profile/Malikus.jpeg';
 
 const colorPalette = {
   background: '#FAFAFA',
@@ -15,14 +17,14 @@ const teamMembers = [
   {
     name: 'Rina Parlina',
     job: 'Front End',
-    photo: '../../Public/images/Profile/Rina.jpg',
+    photo: Rina,
     linkedin: 'https://www.linkedin.com/in/rina-parlina-86a8b130a',
     github: 'https://github.com/rinaparl',
   },
   {
     name: 'Malikus Syafaadi Nurfaza',
     job: 'Project Manager / Front End',
-    photo: '../../Public/images/Profile/Malikus.jpeg',
+    photo: Faza,
     linkedin: 'https://www.linkedin.com/in/malikussyafaadinurfaza/',
     github: 'https://github.com/Malikusfz/',
   },

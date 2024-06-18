@@ -109,7 +109,7 @@ function EarthquakeMap() {
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <Spinner size="xl" color={colorPalette.highlight} thickness="4px" speed="0.65s" emptyColor="gray.200" />
+        <Spinner size="xl" color={colorPalette.highlight} thickness="4px" speed="0.65s" emptyColor="gray.200" role="status" />
       </Box>
     );
   }
