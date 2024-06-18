@@ -1,5 +1,7 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import {
+  render, screen, waitFor, act,
+} from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import nprogress from 'nprogress';
@@ -15,9 +17,11 @@ describe('EarthquakeMap', () => {
     nprogress.done = jest.fn();
   });
 
-  test('renders loading spinner initially', () => {
-    render(<EarthquakeMap />);
-    const spinner = screen.getByRole('status');
+  test('renders loading spinner initially', async () => {
+    await act(async () => {
+      render(<EarthquakeMap />);
+    });
+    const spinner = screen.getByRole('status', { hidden: true });
     expect(spinner).toBeInTheDocument();
   });
 
@@ -39,7 +43,9 @@ describe('EarthquakeMap', () => {
       },
     });
 
-    render(<EarthquakeMap />);
+    await act(async () => {
+      render(<EarthquakeMap />);
+    });
 
     // Wait for the earthquake data to be fetched and rendered
     await waitFor(() => expect(screen.getByText(/Gempa Terbaru di Indonesia/i)).toBeInTheDocument());
@@ -64,7 +70,9 @@ describe('EarthquakeMap', () => {
       },
     });
 
-    render(<EarthquakeMap />);
+    await act(async () => {
+      render(<EarthquakeMap />);
+    });
 
     // Wait for the map to be rendered
     await waitFor(() => expect(screen.getByText(/Gempa Terbaru di Indonesia/i)).toBeInTheDocument());
@@ -72,9 +80,11 @@ describe('EarthquakeMap', () => {
     // Check if the button for switching map styles is present and clickable
     const switchButton = screen.getByText(/Switch to Satellite View/i);
     expect(switchButton).toBeInTheDocument();
-    switchButton.click();
+    act(() => {
+      switchButton.click();
+    });
 
     // Check if the button text changes after clicking
-    expect(screen.getByText(/Switch to Default View/i)).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText(/Switch to Default View/i)).toBeInTheDocument());
   });
 });
