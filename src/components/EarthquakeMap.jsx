@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect, useState, useRef, lazy, Suspense,
+} from 'react';
 import {
   MapContainer, TileLayer, Marker, Popup,
 } from 'react-leaflet';
@@ -13,10 +15,10 @@ import {
 import {
   FaClock, FaCalendarAlt, FaMapMarkerAlt, FaRulerVertical,
 } from 'react-icons/fa';
-import { act } from 'react-dom/test-utils';
 import CenterMapOnPopupOpen from './CenterMapOnPopupOpen';
-import MapControl from './MapControl';
 import Legend from './Legend';
+
+const MapControl = lazy(() => import('./MapControl'));
 
 const colorPalette = {
   background: '#FAFAFA',
@@ -60,23 +62,25 @@ function EarthquakeMap() {
   const fetchEarthquakes = async () => {
     try {
       nprogress.start();
-      const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json');
-      act(() => {
+      const cachedData = localStorage.getItem('earthquakes');
+      if (cachedData) {
+        setEarthquakes(JSON.parse(cachedData));
+        setLoading(false);
+      } else {
+        const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json');
         setEarthquakes(response.data.Infogempa.gempa);
-      });
-      localStorage.setItem('earthquakes', JSON.stringify(response.data.Infogempa.gempa));
+        localStorage.setItem('earthquakes', JSON.stringify(response.data.Infogempa.gempa));
+        setLoading(false);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
+      setLoading(false);
     } finally {
-      act(() => {
-        setLoading(false);
-      });
       nprogress.done();
     }
   };
 
   useEffect(() => {
-    setLoading(true);
     fetchEarthquakes();
   }, []);
 
@@ -98,8 +102,8 @@ function EarthquakeMap() {
   };
 
   const indonesiaBounds = [
-    [-16, 87], // Extend the southern and western bounds
-    [16, 150], // Extend the northern and eastern bounds
+    [-16, 87],
+    [16, 150],
   ];
 
   const mapTileLayers = {
@@ -151,7 +155,9 @@ function EarthquakeMap() {
             url={mapTileLayers[mapStyle]}
             attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
           />
-          <MapControl toast={toast} />
+          <Suspense fallback={<Spinner size="xl" color={colorPalette.highlight} />}>
+            <MapControl toast={toast} />
+          </Suspense>
           {earthquakes.map((gempa) => {
             const coordinates = getCoordinates(gempa.Coordinates);
             if (coordinates[0] === 0 && coordinates[1] === 0) return null;
@@ -167,9 +173,9 @@ function EarthquakeMap() {
                   maxWidth={250}
                   minWidth={150}
                   autoPan
-                  autoPanPadding={L.point(30, 30)} // Allow more padding for slightly out-of-bounds
-                  autoPanPaddingTopLeft={L.point(20, 20)} // Adjust for specific corners
-                  autoPanPaddingBottomRight={L.point(20, 20)} // Adjust for specific corners
+                  autoPanPadding={L.point(30, 30)}
+                  autoPanPaddingTopLeft={L.point(20, 20)}
+                  autoPanPaddingBottomRight={L.point(20, 20)}
                   keepInView
                   onOpen={() => setPopupPosition(coordinates)}
                   onClose={() => setPopupPosition(null)}
