@@ -1,13 +1,7 @@
-/* eslint-disable spellcheck/spell-checker */
-/* eslint-disable linebreak-style */
-// eslint-disable-next-line spellcheck/spell-checker
-/* eslint-disable linebreak-style */
-// content.js
-
 const preparationSteps = [
   {
     id: 1,
-    image: '/src/images/Steps/steps_content1.jpg',
+    image: '../../Public/images/Steps/steps_content1.jpg',
     alt: 'Langkah 1',
     title: 'Pastikan bangunan tempat tinggal Anda memenuhi standar tahan gempa.',
     description: `Dengan memastikan bahwa bangunan memenuhi standar tersebut, 
@@ -18,7 +12,7 @@ const preparationSteps = [
   },
   {
     id: 2,
-    image: '/src/images/Steps/steps_content2.jpg',
+    image: '../../Public/images/Steps/steps_content2.jpg',
     alt: 'Langkah 2',
     title: 'Simpan perbekalan darurat seperti makanan, air, obat-obatan, dan perlengkapan P3K.',
     description: `Simpan perbekalan darurat seperti makanan, air, obat-obatan, dan perlengkapan 
@@ -30,7 +24,7 @@ const preparationSteps = [
   },
   {
     id: 3,
-    image: '/src/images/Steps/steps_content3.jpg',
+    image: '../../Public/images/Steps/steps_content3.jpg',
     alt: 'Langkah 3',
     title: 'Ketahui dan pahami jalur evakuasi di tempat Anda berada.',
     description: `Dengan memahami dan menyiapkan jalur evakuasi yang aman
@@ -44,7 +38,7 @@ const preparationSteps = [
   },
   {
     id: 4,
-    image: '/src/images/Steps/steps_content4.jpg',
+    image: '../../Public/images/Steps/steps_content4.jpg',
     alt: 'Langkah 4',
     title: 'Ikuti pelatihan kesiagaan dan simulasi gempa yang diadakan oleh instansi terkait.',
     description: `Mengikuti pelatihan kesiagaan dan simulasi gempa yang diadakan oleh instansi 
@@ -58,7 +52,7 @@ const preparationSteps = [
   },
   {
     id: 5,
-    image: '/src/images/Steps/steps_content5.jpg',
+    image: '../../Public/images/Steps/steps_content5.jpg',
     alt: 'Langkah 5',
     title: 'Selalu pantau informasi terkini mengenai gempa dari sumber yang terpercaya.',
     description: `Dengan memperoleh informasi yang akurat dan terpercaya, Anda dapat mengambil 

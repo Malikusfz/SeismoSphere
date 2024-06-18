@@ -1,10 +1,3 @@
-// eslint-disable-next-line spellcheck/spell-checker
-/* eslint-disable linebreak-style */
-/* eslint-disable spellcheck/spell-checker */
-// eslint-disable-next-line linebreak-style
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/function-component-definition */
-/* eslint-disable linebreak-style */
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -18,17 +11,19 @@ import {
 } from '@chakra-ui/react';
 import EarthquakeContext from '../state/EarthquakeContext';
 import { actions } from '../state/earthquake';
-import GempaImg from '../images/Gempa.png';
-import TektonikImg from '../images/GempaTektonik.png';
-import VulkanikImg from '../images/GempaVulkanik.png';
-import ReruntuhanImg from '../images/GempaReruntuhan.png';
+import GempaImg from '../../Public/images/Gempa.png';
+import TektonikImg from '../../Public/images/GempaTektonik.png';
+import VulkanikImg from '../../Public/images/GempaVulkanik.png';
+import ReruntuhanImg from '../../Public/images/GempaReruntuhan.png';
 import preparationSteps from '../utils/steps';
 
-const CircleIcon = (props) => (
-  <svg viewBox="0 0 200 200" {...props}>
-    <circle cx="100" cy="100" r="75" fill="currentColor" />
-  </svg>
-);
+function CircleIcon(props) {
+  return (
+    <svg viewBox="0 0 200 200" {...props}>
+      <circle cx="100" cy="100" r="75" fill="currentColor" />
+    </svg>
+  );
+}
 
 function HomePage() {
   const [latestEarthquake, setLatestEarthquake] = useState(null);

@@ -1,10 +1,25 @@
 import React from 'react';
 import {
-  Box, Flex, Heading, Spacer, IconButton, Link, HStack, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, VStack, Image,
+  Box,
+  Flex,
+  Heading,
+  Spacer,
+  IconButton,
+  Link,
+  HStack,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  VStack,
+  Image,
 } from '@chakra-ui/react';
 import { FaBars } from 'react-icons/fa';
 import { Link as RouterLink } from 'react-router-dom';
-import logo from '../images/logo.png'; // Adjust the import path if needed
+import logo from '../../Public/images/logo.png'; // Adjust the import path if needed
 
 function HeaderNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,7 +77,14 @@ function HeaderNav() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>SeismoSphere</DrawerHeader>
+          <DrawerHeader>
+            <Flex alignItems="center">
+              <Image src={logo} alt="SeismoSphere Logo" boxSize="40px" mr={2} />
+              <Heading as="h1" size="lg" color={colorPalette.accent}>
+                SeismoSphere
+              </Heading>
+            </Flex>
+          </DrawerHeader>
           <DrawerBody>
             <VStack spacing={4} align="start">
               <Link as={RouterLink} to="/" onClick={onClose} fontWeight="bold" color={colorPalette.accent} _hover={{ color: colorPalette.highlight }}>

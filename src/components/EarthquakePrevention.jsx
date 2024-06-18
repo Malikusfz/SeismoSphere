@@ -2,18 +2,15 @@ import React from 'react';
 import {
   Card, CardGroup, CardImg, CardBody, CardTitle, CardText, CardSubtitle, Fade,
 } from 'react-bootstrap';
-import DropImg from '../images/Drop.png';
-import CoverImg from '../images/Cover.png';
-import HoldOnImg from '../images/HoldOn.png';
 
 const getActionImage = (action) => {
   switch (action) {
     case 'Drop':
-      return DropImg;
+      return '/images/Drop.png';
     case 'Cover':
-      return CoverImg;
+      return '/images/Cover.png';
     case 'Hold On':
-      return HoldOnImg; 
+      return '/images/HoldOn.png';
     default:
       return '';
   }
