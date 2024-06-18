@@ -1,7 +1,13 @@
+import Step1Photo from '../../Public/images/Steps/steps_content1.jpg';
+import Step2Photo from '../../Public/images/Steps/steps_content2.jpg';
+import Step3Photo from '../../Public/images/Steps/steps_content3.jpg';
+import Step4Photo from '../../Public/images/Steps/steps_content4.jpg';
+import Step5Photo from '../../Public/images/Steps/steps_content5.jpg';
+
 const preparationSteps = [
   {
     id: 1,
-    image: '../../Public/images/Steps/steps_content1.jpg',
+    image: Step1Photo,
     alt: 'Langkah 1',
     title: 'Pastikan bangunan tempat tinggal Anda memenuhi standar tahan gempa.',
     description: `Dengan memastikan bahwa bangunan memenuhi standar tersebut, 
@@ -12,7 +18,7 @@ const preparationSteps = [
   },
   {
     id: 2,
-    image: '../../Public/images/Steps/steps_content2.jpg',
+    image: Step2Photo,
     alt: 'Langkah 2',
     title: 'Simpan perbekalan darurat seperti makanan, air, obat-obatan, dan perlengkapan P3K.',
     description: `Simpan perbekalan darurat seperti makanan, air, obat-obatan, dan perlengkapan 
@@ -24,7 +30,7 @@ const preparationSteps = [
   },
   {
     id: 3,
-    image: '../../Public/images/Steps/steps_content3.jpg',
+    image: Step3Photo,
     alt: 'Langkah 3',
     title: 'Ketahui dan pahami jalur evakuasi di tempat Anda berada.',
     description: `Dengan memahami dan menyiapkan jalur evakuasi yang aman
@@ -38,7 +44,7 @@ const preparationSteps = [
   },
   {
     id: 4,
-    image: '../../Public/images/Steps/steps_content4.jpg',
+    image: Step4Photo,
     alt: 'Langkah 4',
     title: 'Ikuti pelatihan kesiagaan dan simulasi gempa yang diadakan oleh instansi terkait.',
     description: `Mengikuti pelatihan kesiagaan dan simulasi gempa yang diadakan oleh instansi 
@@ -52,7 +58,7 @@ const preparationSteps = [
   },
   {
     id: 5,
-    image: '../../Public/images/Steps/steps_content5.jpg',
+    image: Step5Photo,
     alt: 'Langkah 5',
     title: 'Selalu pantau informasi terkini mengenai gempa dari sumber yang terpercaya.',
     description: `Dengan memperoleh informasi yang akurat dan terpercaya, Anda dapat mengambil 

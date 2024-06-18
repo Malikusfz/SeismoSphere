@@ -1,8 +1,13 @@
+import Article1Photo from '../../Public/images/Content/Article1.jpg';
+import Article2Photo from '../../Public/images/Content/Article2.jpg';
+import Article3Photo from '../../Public/images/Content/Article3.jpg';
+import Article4Photo from '../../Public/images/Content/Article4.jpg';
+
 const articles = [
   {
     id: 1,
     title: 'Gempa Bumi',
-    photo: '../../Public/images/Content/Article1.jpg',
+    photo: Article1Photo,
     content: `Gempa bumi merupakan salah satu bencana alam yang dapat terjadi kapan saja dan di mana saja. 
     Kejadian ini dapat menimbulkan kerusakan dan korban jiwa yang signifikan. Oleh karena itu, penting untuk 
     meningkatkan kesiapsiagaan terhadap gempa bumi agar dapat meminimalisir dampaknya.`,
@@ -13,7 +18,7 @@ const articles = [
   {
     id: 2,
     title: 'Kesiapsiagaan Gempa Bumi: Melindungi Diri dan Keluarga',
-    photo: '../../Public/images/Content/Article2.jpg',
+    photo: Article2Photo,
     content: `Gempa bumi, sebagai salah satu bencana alam yang tak terduga, 
     dapat mengakibatkan kerusakan yang serius dan korban jiwa yang signifikan di mana saja dan kapan saja. 
     Oleh karena itu, penting bagi individu dan komunitas untuk meningkatkan kesiapsiagaan mereka terhadap
@@ -27,7 +32,7 @@ const articles = [
   {
     id: 3,
     title: "Gempa terjadi 16 kali dalam dua pekan di Indonesia, mengapa sekarang gempa 'sering terjadi'?",
-    photo: '../../Public/images/Content/Article3.jpg',
+    photo: Article3Photo,
     content: `Secara umum, keberadaan gempa bumi di Indonesia merupakan fenomena yang lumrah dan terkait 
     erat dengan posisi geologisnya yang unik. Menurut Gayatri Indah Marliyani dari Universitas Gadjah Mada, 
     peningkatan jumlah gempa yang dirasakan oleh masyarakat sebagian besar merupakan dampak psikologis dari 
@@ -43,7 +48,7 @@ const articles = [
   {
     id: 4,
     title: 'Gempa Maluku: bagaimana gempa bumi bisa memicu terjadinya tsunami',
-    photo: '../../Public/images/Content/Article4.jpg',
+    photo: Article4Photo,
     content: `Gempa bumi terjadi karena pergerakan lempeng tektonik di zona subduksi, 
     di mana satu lempeng menyelam di bawah lempeng lain. Saat lempeng bergerak, tekanan 
     yang terbangun dilepaskan dalam bentuk gempa, kadang-kadang menghasilkan tsunami jika 
