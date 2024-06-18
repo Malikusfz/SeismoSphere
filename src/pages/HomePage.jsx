@@ -1,185 +1,261 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useRef } from 'react';
 import {
+  Image,
   Box,
+  Button,
+  Flex,
   Heading,
   Text,
-  Grid,
-  Image,
-  VStack,
+  SimpleGrid,
+  Card,
+  CardBody,
+  Stack,
+  useMediaQuery,
 } from '@chakra-ui/react';
-import EarthquakeContext from '../state/EarthquakeContext';
-import { actions } from '../state/earthquake';
+import { motion } from 'framer-motion';
 import GempaImg from '../../Public/images/Gempa.png';
 import TektonikImg from '../../Public/images/GempaTektonik.png';
 import VulkanikImg from '../../Public/images/GempaVulkanik.png';
 import ReruntuhanImg from '../../Public/images/GempaReruntuhan.png';
-import preparationSteps from '../utils/steps';
+import Seismosphere from '../../Public/images/Seismosphere.png';
+import EarthquakeInfo from '../components/EarthquakeInfo';
+import EarthquakePrevention from '../components/EarthquakePrevention';
+import EarthquakeSigns from '../components/EarthquakeSigns';
 
-function CircleIcon(props) {
-  return (
-    <svg viewBox="0 0 200 200" {...props}>
-      <circle cx="100" cy="100" r="75" fill="currentColor" />
-    </svg>
-  );
-}
+const MotionBox = motion(Box);
+
+const colorPalette = {
+  background: '#FAFAFA',
+  secondary: '#C7EEFF',
+  highlight: '#0077C0',
+  accent: '#1D242B',
+};
 
 function HomePage() {
-  const [latestEarthquake, setLatestEarthquake] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const { dispatch } = useContext(EarthquakeContext);
-  const navigate = useNavigate();
+  const [isLargeThan62] = useMediaQuery('(min-width: 62em)');
+  const EarthquakeInfoRef = useRef(null);
 
-  useEffect(() => {
-    const fetchEarthquakes = async () => {
-      try {
-        const cachedData = localStorage.getItem('earthquakes');
-        if (cachedData) {
-          const earthquakes = JSON.parse(cachedData);
-          setLatestEarthquake(earthquakes[0]);
-          setLoading(false);
-        } else {
-          const response = await axios.get(
-            'https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json',
-          );
-          const earthquakes = response.data.Infogempa.gempa;
-          setLatestEarthquake(earthquakes[0]);
-          localStorage.setItem('earthquakes', JSON.stringify(earthquakes));
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchEarthquakes();
-  }, []);
-
-  const handleRowClick = (gempa) => {
-    dispatch(actions.setSelectedEarthquake(gempa));
-    navigate('/map');
+  const handleScroll = () => {
+    EarthquakeInfoRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <Box bg="#FAFAFA" color="#1D242B" minH="100vh">
-      <Box textAlign="center" py={20}>
-        <Heading as="h1" size="xl">
-          SeismoSphere
-        </Heading>
-        <Text>Lacak Gempa Secara Real-Time dan Selalu Siaga!</Text>
-      </Box>
-      <Box px={10}>
-        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={6}>
-          <Box>
-            <Box bg="white" boxShadow="md" p={4} borderRadius="md" mb={6}>
-              <Heading as="h5" size="md" textAlign="center" mb={4}>
-                Gempa
-              </Heading>
-              <Image src={GempaImg} alt="Gempa" mx="auto" mb={4} />
-              <Text textAlign="justify">
-                Gempa bumi adalah fenomena alam yang terjadi ketika terjadi pelepasan energi secara tiba-tiba di dalam bumi, menyebabkan getaran atau goncangan di permukaan. Penyebabnya dapat beragam, termasuk pergerakan lempeng tektonik, aktivitas vulkanik, atau proses geologi lainnya. Getaran yang dihasilkan dapat berpotensi menyebabkan kerusakan pada struktur bangunan dan infrastruktur, serta berbagai dampak lain seperti tsunami atau tanah longsor tergantung pada lokasi dan karakteristik gempa tersebut.
-              </Text>
-            </Box>
-          </Box>
-          <Box>
-            <Box bg="white" boxShadow="md" p={4} borderRadius="md" mb={6}>
-              <CircleIcon style={{ marginLeft: '5px', width: '20px', height: '20px' }} color="red" />
-              <Heading as="h5" size="md" textAlign="center" mb={4}>
-                Gempa Bumi Terkini
-                {' '}
-              </Heading>
-              {loading ? (
-                <Text>Loading...</Text>
-              ) : (
-                latestEarthquake && (
-                  <Box>
-                    <Text onClick={() => handleRowClick(latestEarthquake)} cursor="pointer">
-                      <strong>Tanggal:</strong>
-                      {' '}
-                      {latestEarthquake.Tanggal}
-                    </Text>
-                    <Text>
-                      <strong>Waktu:</strong>
-                      {' '}
-                      {latestEarthquake.Jam}
-                    </Text>
-                    <Text>
-                      <strong>Magnitude:</strong>
-                      {' '}
-                      {latestEarthquake.Magnitude}
-                    </Text>
-                    <Text>
-                      <strong>Kedalaman:</strong>
-                      {' '}
-                      {latestEarthquake.Kedalaman}
-                    </Text>
-                    <Text>
-                      <strong>Wilayah:</strong>
-                      {' '}
-                      {latestEarthquake.Wilayah}
-                    </Text>
-                  </Box>
-                )
-              )}
-            </Box>
-          </Box>
-        </Grid>
+    <>
+      <Flex
+        bg={colorPalette.background}
+        alignItems="center"
+        w="full"
+        px={isLargeThan62 ? '16' : '6'}
+        py="16"
+        minHeight="90vh" // eslint-disable-line spellcheck/spell-checker
+        justifyContent="space-between"
+        flexDirection={isLargeThan62 ? 'row' : 'column'}
+      >
+        <Flex
+          mr={isLargeThan62 ? '7' : '0'}
+          flexDirection="column"
+          w={isLargeThan62 ? '60%' : 'full'}
+        >
+          <Text fontSize="xl" fontWeight="bold">
+            Aplikasi Informasi Gempa Indonesia
+          </Text>
 
-        <Box bg="gray.800" color="white" p={6} borderRadius="md" mt={6}>
-          <Heading as="h5" size="md" textAlign="center" mb={4}>
-            Jenis Jenis Gempa
-          </Heading>
-          <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={6}>
-            <Box>
-              <Image src={TektonikImg} alt="Gempa Tektonik" mx="auto" mb={4} />
-              <Heading as="h5" size="md" textAlign="center" mb={2}>
-                Gempa Tektonik
-              </Heading>
-              <Text textAlign="center">
-                Gempa ini disebabkan oleh pergerakan lempeng tektonik di kerak bumi. Ini adalah jenis gempa yang paling umum dan sering kali paling merusak.
-              </Text>
-            </Box>
-            <Box>
-              <Image src={VulkanikImg} alt="Gempa Vulkanik" mx="auto" mb={4} />
-              <Heading as="h5" size="md" textAlign="center" mb={2}>
-                Gempa Vulkanik
-              </Heading>
-              <Text textAlign="center">
-                Gempa ini terjadi akibat aktivitas vulkanik, seperti letusan gunung berapi atau pergerakan magma di dalam bumi.
-              </Text>
-            </Box>
-            <Box>
-              <Image src={ReruntuhanImg} alt="Gempa Reruntuhan" mx="auto" mb={4} />
-              <Heading as="h5" size="md" textAlign="center" mb={2}>
-                Gempa Reruntuhan
-              </Heading>
-              <Text textAlign="center">
-                Gempa ini disebabkan oleh runtuhan tanah atau batuan di daerah karst atau tambang. Mereka biasanya lebih kecil dan lokal.
-              </Text>
-            </Box>
-          </Grid>
-        </Box>
+          <Text
+            fontSize={isLargeThan62 ? '5xl' : '4xl'} // eslint-disable-line spellcheck/spell-checker
+            fontWeight="bold"
+            mb="4"
+            color={colorPalette.highlight}
+          >
+            SeismoSphere
+          </Text>
 
-        <Box bg="gray.800" color="white" p={6} borderRadius="md" mt={6}>
-          <Heading as="h5" size="md" textAlign="center" mb={4}>
-            Cara Mempersiapkan Diri Dari Gempa Bumi
-          </Heading>
-          <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={6}>
-            {preparationSteps.map((step) => (
-              <Box key={step.id} bg="gray.800" boxShadow="md" p={4} borderRadius="md" textAlign="center">
-                <VStack spacing={4}>
-                  <Image src={step.image} alt={step.alt} boxSize="200px" objectFit="cover" borderRadius="20px" />
-                  <Text fontWeight="bold" textAlign="justify">{step.title}</Text>
-                  <Text textAlign="justify">{step.description}</Text>
-                </VStack>
-              </Box>
-            ))}
-          </Grid>
+          <Text mb="6" fontSize={isLargeThan62 ? 'lg' : 'base'}>
+            Jaringan Cerdas Untuk Kesiapsiagaan Gempa
+          </Text>
+
+          <Button
+            w="200px"
+            colorScheme="blue"
+            variant="solid"
+            h="50px"
+            size={isLargeThan62 ? 'lg' : 'md'}
+            mb={isLargeThan62 ? '0' : '10'}
+            onClick={handleScroll}
+          >
+            Selanjutnya
+          </Button>
+        </Flex>
+
+        <Flex
+          w={isLargeThan62 ? '40%' : 'full'}
+          mb={isLargeThan62 ? '0' : '6'}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Image src={Seismosphere} alt="SeismoSphere" w="full" />
+        </Flex>
+      </Flex>
+
+      <Box
+        bg={colorPalette.background}
+        color={colorPalette.accent}
+        ref={EarthquakeInfoRef}
+      >
+        <Box as="main" bg={colorPalette.background} p={2}>
+          <SimpleGrid columns={[1, null, 2]} spacing="20px">
+            <MotionBox
+              as={Card}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <CardBody bg={colorPalette.background}>
+                <Image src={GempaImg} alt="Gempa" borderRadius="lg" />
+                <Stack mt="6" spacing="3">
+                  <Heading size="md">Gempa</Heading>
+                  <Text>
+                    Gempa adalah getaran permukaan bumi akibat pelepasan energi
+                    dari dalam bumi secara tiba-tiba.
+                  </Text>
+                </Stack>
+              </CardBody>
+            </MotionBox>
+
+            <Flex flexDirection="column" gap="20px">
+              <MotionBox
+                as={Card}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <EarthquakeInfo />
+              </MotionBox>
+
+              <MotionBox
+                as={Card}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <EarthquakePrevention />
+              </MotionBox>
+            </Flex>
+          </SimpleGrid>
+
+          <Box color={colorPalette.accent} my="30px">
+            <Card bg={colorPalette.background}>
+              <CardBody>
+                <Heading
+                  size="m"
+                  textAlign="center"
+                  color={colorPalette.highlight}
+                >
+                  Jenis Jenis Gempa
+                </Heading>
+                <SimpleGrid columns={[1, null, 3]} spacing="20px" mt="4">
+                  <MotionBox
+                    as={Card}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Box
+                      position="relative"
+                      width="80%"
+                      paddingTop="45%"
+                      margin="20px auto 0"
+                      overflow="hidden"
+                    >
+                      <Image
+                        alt="Gempa Tektonik"
+                        src={TektonikImg}
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                      />
+                    </Box>
+                    <CardBody>
+                      <Heading size="md">Gempa Tektonik</Heading>
+                      <Text>
+                        Gempa ini disebabkan oleh pergerakan lempeng tektonik di
+                        kerak bumi. Ini adalah jenis gempa yang paling umum dan
+                        sering kali paling merusak.
+                      </Text>
+                    </CardBody>
+                  </MotionBox>
+                  <MotionBox
+                    as={Card}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Box
+                      position="relative"
+                      width="80%"
+                      paddingTop="45%"
+                      margin="20px auto 0"
+                      overflow="hidden"
+                    >
+                      <Image
+                        alt="Gempa Vulkanik"
+                        src={VulkanikImg}
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                      />
+                    </Box>
+                    <CardBody>
+                      <Heading size="md">Gempa Vulkanik</Heading>
+                      <Text>
+                        Gempa ini terjadi akibat aktivitas vulkanik, seperti
+                        letusan gunung berapi atau pergerakan magma di dalam
+                        bumi.
+                      </Text>
+                    </CardBody>
+                  </MotionBox>
+                  <MotionBox
+                    as={Card}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Box
+                      position="relative"
+                      width="80%"
+                      paddingTop="45%"
+                      margin="20px auto 0"
+                      overflow="hidden"
+                    >
+                      <Image
+                        alt="Gempa Reruntuhan"
+                        src={ReruntuhanImg}
+                        position="absolute"
+                        top="0"
+                        left="0"
+                        width="100%"
+                        height="100%"
+                        objectFit="cover"
+                      />
+                    </Box>
+                    <CardBody>
+                      <Heading size="md">Gempa Reruntuhan</Heading>
+                      <Text>
+                        Gempa ini disebabkan oleh runtuhan tanah atau batuan di
+                        daerah karst atau tambang. Mereka biasanya lebih kecil
+                        dan lokal.
+                      </Text>
+                    </CardBody>
+                  </MotionBox>
+                </SimpleGrid>
+              </CardBody>
+            </Card>
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <Box>
+        <EarthquakeSigns />
+      </Box>
+    </>
   );
 }
 

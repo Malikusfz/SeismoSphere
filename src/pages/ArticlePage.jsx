@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
 import {
-  Container, Heading, VStack, useColorModeValue,
+  Container, Heading, SimpleGrid, useColorModeValue,
 } from '@chakra-ui/react';
 import Article from '../components/Article';
 import articles from '../utils/art';
@@ -12,11 +12,21 @@ function ArticlePage() {
   const borderColor = useColorModeValue('gray.200', 'gray.600');
 
   return (
-    <Container maxW="container.md" py={8} bg={bgColor} boxShadow="xl" borderRadius="lg" border="1px solid" borderColor={borderColor}>
+    <Container
+      maxW="full"
+      py={8}
+      bg={bgColor}
+      boxShadow="xl"
+      borderRadius="lg"
+      border="1px solid"
+      borderColor={borderColor}
+      w="full"
+      my={8}
+    >
       <Heading as="h1" mb={6} textAlign="center" fontSize="2xl" color="teal.500">
         Articles on Earthquakes
       </Heading>
-      <VStack spacing={6} align="stretch">
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={4}>
         {articles.map((article) => (
           <Article
             key={article.id}
@@ -28,7 +38,7 @@ function ArticlePage() {
             link={article.link}
           />
         ))}
-      </VStack>
+      </SimpleGrid>
     </Container>
   );
 }
