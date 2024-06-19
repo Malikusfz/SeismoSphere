@@ -31,7 +31,7 @@ const teamMembers = [
   },
   {
     name: 'Bagus Viki Amalindo',
-    job: 'FrontEnd',
+    job: 'Front End',
     photo: Viki,
     linkedin: 'https://www.linkedin.com/in/bagus-viki-amalindo-903966268/',
     github: 'https://github.com/amalindouser ',
