@@ -62,14 +62,17 @@ function EarthquakeMap() {
   const fetchEarthquakes = async () => {
     try {
       nprogress.start();
-      const cachedData = localStorage.getItem('earthquakes');
-      if (cachedData) {
-        setEarthquakes(JSON.parse(cachedData));
+      const cachedData = JSON.parse(localStorage.getItem('earthquakes'));
+      const now = new Date().getTime();
+
+      if (cachedData && (now - cachedData.timestamp < 300000)) { // 5 minutes in milliseconds
+        setEarthquakes(cachedData.data);
         setLoading(false);
       } else {
         const response = await axios.get('https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json');
-        setEarthquakes(response.data.Infogempa.gempa);
-        localStorage.setItem('earthquakes', JSON.stringify(response.data.Infogempa.gempa));
+        const data = response.data.Infogempa.gempa;
+        setEarthquakes(data);
+        localStorage.setItem('earthquakes', JSON.stringify({ data, timestamp: now }));
         setLoading(false);
       }
     } catch (error) {
@@ -82,6 +85,12 @@ function EarthquakeMap() {
 
   useEffect(() => {
     fetchEarthquakes();
+
+    // Set an interval to fetch data periodically
+    const intervalId = setInterval(fetchEarthquakes, 60000); // Fetch every 60 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
