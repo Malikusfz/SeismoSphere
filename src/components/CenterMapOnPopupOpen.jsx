@@ -8,22 +8,29 @@ function CenterMapOnPopupOpen({ position }) {
   const initialZoom = 5;
 
   useEffect(() => {
-    if (position) {
+    if (!position) {
+      // Only set to initial view if we're really far from it
       const currentCenter = map.getCenter();
-      if (currentCenter.lat !== position[0] || currentCenter.lng !== position[1]) {
-        map.setView(position, map.getZoom(), {
+      const distance = map.distance([currentCenter.lat, currentCenter.lng], initialCenter);
+      if (distance > 1000000) { // 1000km
+        map.setView(initialCenter, initialZoom, {
           animate: true,
-          pan: {
-            duration: 0.5,
-          },
+          pan: { duration: 0.5 },
         });
       }
-    } else {
-      map.setView(initialCenter, initialZoom, {
+      return;
+    }
+
+    const currentCenter = map.getCenter();
+    const currentBounds = map.getBounds();
+
+    // Only center if the point is outside the current viewport or near the edges
+    if (!currentBounds.contains(position)
+        || Math.abs(currentCenter.lat - position[0]) > currentBounds.getNorth() - currentBounds.getSouth() / 4
+        || Math.abs(currentCenter.lng - position[1]) > currentBounds.getEast() - currentBounds.getWest() / 4) {
+      map.setView(position, map.getZoom(), {
         animate: true,
-        pan: {
-          duration: 0.5,
-        },
+        pan: { duration: 0.5 },
       });
     }
   }, [position, map]);
