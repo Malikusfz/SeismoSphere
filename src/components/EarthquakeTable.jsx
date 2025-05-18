@@ -279,7 +279,6 @@ function EarthquakeTable() {
                 borderColor={borderColor}
                 bg={selectedRow === index ? rowSelectedBgColor : cardBgColor}
                 boxShadow={cardShadow}
-                transition="all 0.3s"
                 position="relative"
                 overflow="hidden"
                 initial={{ opacity: 0, y: 20 }}
@@ -451,7 +450,6 @@ function EarthquakeTable() {
                   <MotionTr
                     key={gempa.DateTime}
                     _hover={{ bg: hoverBgColor, transform: 'scale(1.01)' }}
-                    transition="all 0.2s"
                     cursor="pointer"
                     bg={selectedRow === index ? (rowSelectedBgColor) : 'transparent'}
                     onClick={() => setSelectedRow(index)}

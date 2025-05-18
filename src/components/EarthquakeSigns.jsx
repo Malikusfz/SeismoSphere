@@ -56,7 +56,11 @@ const colorPalette = {
   glassBorderDark: '1px solid rgba(255, 255, 255, 0.05)',
 };
 
-// Get icon based on step index
+/**
+ * Returns the icon component based on the step index.
+ * @param {number} index - The index of the step.
+ * @returns {React.ComponentType} The icon component for the step.
+ */
 const getStepIcon = (index) => {
   switch (index) {
     case 0:
@@ -74,6 +78,28 @@ const getStepIcon = (index) => {
   }
 };
 
+/**
+ * Returns the Chakra UI color scheme for a given step index.
+ * @param {number} index - The index of the step.
+ * @returns {string} The color scheme name.
+ */
+const getStepColor = (index) => {
+  switch (index) {
+    case 0: return "green";
+    case 1: return "purple";
+    case 2: return "yellow";
+    case 3: return "red";
+    case 4: return "blue";
+    default: return "teal";
+  }
+};
+
+/**
+ * EarthquakeSigns component displays earthquake preparedness steps with animations and visuals.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered EarthquakeSigns section.
+ */
 function EarthquakeSigns() {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -147,17 +173,6 @@ function EarthquakeSigns() {
       scale: 1.05, 
       y: -2,
       transition: { duration: 0.2 } 
-    }
-  };
-
-  const getStepColor = (index) => {
-    switch (index) {
-      case 0: return "green";
-      case 1: return "purple";
-      case 2: return "yellow";
-      case 3: return "red";
-      case 4: return "blue";
-      default: return "teal";
     }
   };
 
