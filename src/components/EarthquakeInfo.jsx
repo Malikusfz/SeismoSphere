@@ -70,34 +70,37 @@ const colorPalette = {
   gradientBlue: 'linear-gradient(135deg, #4299E1, #0077C0)',
   gradientOrange: 'linear-gradient(135deg, #F6AD55, #DD6B20)',
   gradientRed: 'linear-gradient(135deg, #FC8181, #E53E3E)',
-  glassLight: 'rgba(255, 255, 255, 0.7)',
-  glassDark: 'rgba(26, 32, 44, 0.7)',
-  glassBorderLight: '1px solid rgba(255, 255, 255, 0.2)',
-  glassBorderDark: '1px solid rgba(255, 255, 255, 0.05)',
+  gradientGreen: 'linear-gradient(135deg, #68D391, #38A169)',
+  gradientPurple: 'linear-gradient(135deg, #9F7AEA, #553C9A)',
+  glassLight: 'rgba(255, 255, 255, 0.8)',
+  glassDark: 'rgba(26, 32, 44, 0.8)',
+  glassBorderLight: '1px solid rgba(255, 255, 255, 0.3)',
+  glassBorderDark: '1px solid rgba(255, 255, 255, 0.1)',
+  shimmer: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
 };
 
 /**
  * Returns a gradient color based on earthquake magnitude
- * 
+ *
  * @param {number} magnitude - The earthquake magnitude
  * @returns {string} - CSS gradient string
  */
 const getGradient = (magnitude) => {
   if (magnitude >= 7) {
-    return 'linear-gradient(135deg, #FC8181, #E53E3E)';
+    return colorPalette.gradientRed;
   } if (magnitude >= 6) {
-    return 'linear-gradient(135deg, #F6AD55, #DD6B20)';
+    return colorPalette.gradientOrange;
   } if (magnitude >= 5.5) {
     return 'linear-gradient(135deg, #FFD767, #D69E2E)';
   } if (magnitude >= 4.5) {
-    return 'linear-gradient(135deg, #68D391, #38A169)';
+    return colorPalette.gradientGreen;
   }
-  return 'linear-gradient(135deg, #4299E1, #0077C0)';
+  return colorPalette.gradientBlue;
 };
 
 /**
  * Returns a solid color based on earthquake magnitude
- * 
+ *
  * @param {number} magnitude - The earthquake magnitude
  * @returns {string} - Chakra UI color string
  */
@@ -119,20 +122,20 @@ const getColor = (magnitude) => {
  */
 const getMagnitudeDescription = (magnitude) => {
   if (magnitude >= 7) {
-    return "Berpotensi merusak parah";
+    return 'Berpotensi merusak parah';
   } if (magnitude >= 6) {
-    return "Berpotensi merusak";
+    return 'Berpotensi merusak';
   } if (magnitude >= 5.5) {
-    return "Berpotensi merusak ringan";
+    return 'Berpotensi merusak ringan';
   } if (magnitude >= 4.5) {
-    return "Terasa kuat";
+    return 'Terasa kuat';
   }
-  return "Terasa ringan";
+  return 'Terasa ringan';
 };
 
 /**
  * Komponen untuk menampilkan informasi gempa terkini dengan tampilan modern
- * 
+ *
  * @returns {JSX.Element} Komponen informasi gempa
  */
 function EarthquakeInfo() {
@@ -154,35 +157,35 @@ function EarthquakeInfo() {
   const glassBorder = useColorModeValue(colorPalette.glassBorderLight, colorPalette.glassBorderDark);
   const pulseAnimation = `${pulse} 2s infinite ease-in-out`;
   const waveAnimation = `${wave} 3s infinite ease-in-out`;
-  
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.1
-      }
-    }
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 15 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         type: 'spring',
-        stiffness: 100
-      }
-    }
+        stiffness: 100,
+      },
+    },
   };
 
   const fetchEarthquakes = async (showRefresh = false) => {
     try {
       if (showRefresh) setRefreshing(true);
       setError(null);
-      
+
       const cachedData = JSON.parse(localStorage.getItem('earthquakes'));
       const now = new Date().getTime();
 
@@ -210,7 +213,7 @@ function EarthquakeInfo() {
   useEffect(() => {
     fetchEarthquakes();
   }, []);
-  
+
   // Format the last updated time to locale string
   const formatLastUpdated = () => {
     if (!lastUpdated) return '';
@@ -219,10 +222,10 @@ function EarthquakeInfo() {
 
   if (loading) {
     return (
-      <MotionCard 
-        bg={cardBg} 
-        boxShadow="xl" 
-        borderRadius="2xl" 
+      <MotionCard
+        bg={cardBg}
+        boxShadow="xl"
+        borderRadius="2xl"
         overflow="hidden"
         height="100%"
         border={glassBorder}
@@ -232,8 +235,8 @@ function EarthquakeInfo() {
         transition={{ duration: 0.5 }}
         role="group"
       >
-        <CardHeader 
-          bgGradient={colorPalette.gradientBlue} 
+        <CardHeader
+          bgGradient={colorPalette.gradientBlue}
           py={5}
           px={6}
           position="relative"
@@ -243,7 +246,7 @@ function EarthquakeInfo() {
             <Icon as={FaWaveSquare} color="white" boxSize={5} />
             <Skeleton height="24px" width="200px" startColor="whiteAlpha.300" endColor="whiteAlpha.500" />
           </HStack>
-          
+
           {/* Animated background wave */}
           <Box
             position="absolute"
@@ -257,7 +260,7 @@ function EarthquakeInfo() {
             zIndex={1}
           />
         </CardHeader>
-        
+
         <CardBody p={6}>
           <VStack spacing={6} align="stretch">
             <HStack spacing={4} align="center">
@@ -267,9 +270,9 @@ function EarthquakeInfo() {
                 <Skeleton height="16px" width="60%" />
               </VStack>
             </HStack>
-            
+
             <Divider />
-            
+
             <HStack spacing={4} align="center">
               <Skeleton width="50px" height="50px" borderRadius="full" />
               <VStack align="flex-start" spacing={2} width="full">
@@ -277,9 +280,9 @@ function EarthquakeInfo() {
                 <Skeleton height="16px" width="40%" />
               </VStack>
             </HStack>
-            
+
             <Divider />
-            
+
             <HStack spacing={4} align="center">
               <Skeleton width="50px" height="50px" borderRadius="full" />
               <VStack align="flex-start" spacing={2} width="full">
@@ -287,9 +290,9 @@ function EarthquakeInfo() {
                 <Skeleton height="24px" width="25%" borderRadius="full" />
               </VStack>
             </HStack>
-            
+
             <Divider />
-            
+
             <HStack spacing={4} align="flex-start">
               <Skeleton width="50px" height="50px" borderRadius="full" />
               <VStack align="flex-start" spacing={2} width="full">
@@ -297,7 +300,7 @@ function EarthquakeInfo() {
                 <Skeleton height="16px" width="70%" />
               </VStack>
             </HStack>
-            
+
             <Skeleton height="45px" width="full" borderRadius="xl" mt={2} />
           </VStack>
         </CardBody>
@@ -307,10 +310,10 @@ function EarthquakeInfo() {
 
   if (error) {
     return (
-      <Alert 
-        status="error" 
-        variant="left-accent" 
-        borderRadius="2xl" 
+      <Alert
+        status="error"
+        variant="left-accent"
+        borderRadius="2xl"
         boxShadow="xl"
         height="100%"
         p={6}
@@ -320,9 +323,9 @@ function EarthquakeInfo() {
             <AlertIcon boxSize={6} />
             <Text ml={2} fontWeight="medium">{error}</Text>
           </Flex>
-          <Button 
-            size="md" 
-            colorScheme="red" 
+          <Button
+            size="md"
+            colorScheme="red"
             onClick={() => fetchEarthquakes(true)}
             leftIcon={<FaSyncAlt />}
             borderRadius="xl"
@@ -330,7 +333,7 @@ function EarthquakeInfo() {
             boxShadow="md"
             _hover={{
               transform: 'translateY(-2px)',
-              boxShadow: 'xl'
+              boxShadow: 'xl',
             }}
           >
             Coba Lagi
@@ -342,10 +345,10 @@ function EarthquakeInfo() {
 
   if (!latestEarthquake) {
     return (
-      <Alert 
-        status="info" 
-        variant="left-accent" 
-        borderRadius="2xl" 
+      <Alert
+        status="info"
+        variant="left-accent"
+        borderRadius="2xl"
         boxShadow="xl"
         height="100%"
         p={6}
@@ -359,7 +362,7 @@ function EarthquakeInfo() {
   const hasTsunami = latestEarthquake.Potensi === 'Tsunami';
   const magnitude = parseFloat(latestEarthquake.Magnitude);
   const magnitudeColor = getColor(magnitude);
-  
+
   return (
     <ScaleFade initialScale={0.95} in={!loading}>
       <MotionCard
@@ -372,9 +375,9 @@ function EarthquakeInfo() {
         overflow="hidden"
         height="100%"
         transition="all 0.3s"
-        _hover={{ 
+        _hover={{
           transform: 'translateY(-8px)',
-          boxShadow: '2xl'
+          boxShadow: '2xl',
         }}
         position="relative"
         role="group"
@@ -393,13 +396,13 @@ function EarthquakeInfo() {
           backgroundPosition="center"
           transform="scaleY(5)"
           transition="opacity 0.5s ease"
-          _groupHover={{ opacity: "0.1" }}
+          _groupHover={{ opacity: '0.1' }}
         />
-        
-        <Flex 
+
+        <Flex
           bgGradient={`linear-gradient(to right, ${blue400}, ${blue600})`}
-          p={6} 
-          justifyContent="space-between" 
+          p={6}
+          justifyContent="space-between"
           alignItems="center"
           borderBottomWidth="1px"
           borderColor={borderColor}
@@ -407,10 +410,10 @@ function EarthquakeInfo() {
           zIndex="1"
         >
           <HStack spacing={3}>
-            <Icon 
-              as={FaWaveSquare} 
-              color="white" 
-              boxSize={5} 
+            <Icon
+              as={FaWaveSquare}
+              color="white"
+              boxSize={5}
               animation={waveAnimation}
               transformOrigin="center"
             />
@@ -423,7 +426,7 @@ function EarthquakeInfo() {
               Gempa Bumi Terkini
             </Heading>
           </HStack>
-          
+
           {lastUpdated && (
             <MotionBadge
               initial={{ opacity: 0, scale: 0.8 }}
@@ -444,7 +447,7 @@ function EarthquakeInfo() {
               {formatLastUpdated()}
             </MotionBadge>
           )}
-          
+
           {/* Animated wave for visual effect */}
           <Box
             position="absolute"
@@ -458,7 +461,7 @@ function EarthquakeInfo() {
             zIndex={1}
           />
         </Flex>
-        
+
         <Box p={6} position="relative" zIndex="1">
           {hasTsunami && (
             <MotionFlex
@@ -476,7 +479,7 @@ function EarthquakeInfo() {
               transition={{ duration: 0.5 }}
               _hover={{
                 transform: 'translateY(-2px)',
-                boxShadow: 'lg'
+                boxShadow: 'lg',
               }}
               animation={pulseAnimation}
             >
@@ -484,7 +487,7 @@ function EarthquakeInfo() {
               <Text fontSize="md">BERPOTENSI TSUNAMI</Text>
             </MotionFlex>
           )}
-          
+
           <List spacing={5}>
             <MotionBox variants={itemVariants}>
               <ListItem>
@@ -495,12 +498,12 @@ function EarthquakeInfo() {
                     align="center"
                     justify="center"
                     borderRadius="full"
-                    bg={`blue.50`}
-                    color={`blue.500`}
+                    bg="blue.50"
+                    color="blue.500"
                     transition="all 0.3s"
                     _groupHover={{
-                      transform: "scale(1.05)",
-                      bg: "blue.100"
+                      transform: 'scale(1.05)',
+                      bg: 'blue.100',
                     }}
                   >
                     <Icon as={FaCalendarAlt} boxSize={5} />
@@ -516,9 +519,9 @@ function EarthquakeInfo() {
                 </HStack>
               </ListItem>
             </MotionBox>
-            
+
             <Divider />
-            
+
             <MotionBox variants={itemVariants}>
               <ListItem>
                 <HStack spacing={4} align="center">
@@ -528,12 +531,12 @@ function EarthquakeInfo() {
                     align="center"
                     justify="center"
                     borderRadius="full"
-                    bg={`purple.50`}
-                    color={`purple.500`}
+                    bg="purple.50"
+                    color="purple.500"
                     transition="all 0.3s"
                     _groupHover={{
-                      transform: "scale(1.05)",
-                      bg: "purple.100"
+                      transform: 'scale(1.05)',
+                      bg: 'purple.100',
                     }}
                   >
                     <Icon as={FaClock} boxSize={5} />
@@ -549,9 +552,9 @@ function EarthquakeInfo() {
                 </HStack>
               </ListItem>
             </MotionBox>
-            
+
             <Divider />
-            
+
             <MotionBox variants={itemVariants}>
               <ListItem>
                 <HStack spacing={4} align="center">
@@ -565,8 +568,8 @@ function EarthquakeInfo() {
                     color={`${magnitudeColor}.500`}
                     transition="all 0.3s"
                     _groupHover={{
-                      transform: "scale(1.05)",
-                      bg: `${magnitudeColor}.100`
+                      transform: 'scale(1.05)',
+                      bg: `${magnitudeColor}.100`,
                     }}
                   >
                     <Icon as={FaRuler} boxSize={5} />
@@ -599,8 +602,8 @@ function EarthquakeInfo() {
                           onClick={() => setShowTooltip(!showTooltip)}
                           transition="all 0.2s"
                           _hover={{
-                            transform: "scale(1.05)",
-                            boxShadow: "lg"
+                            transform: 'scale(1.05)',
+                            boxShadow: 'lg',
                           }}
                           position="relative"
                         >
@@ -618,10 +621,10 @@ function EarthquakeInfo() {
                           />
                         </Badge>
                       </Tooltip>
-                      <Icon 
-                        as={FaInfoCircle} 
-                        color={`${magnitudeColor}.400`} 
-                        boxSize={4} 
+                      <Icon
+                        as={FaInfoCircle}
+                        color={`${magnitudeColor}.400`}
+                        boxSize={4}
                         opacity={0.7}
                         cursor="pointer"
                         onClick={() => setShowTooltip(!showTooltip)}
@@ -632,9 +635,9 @@ function EarthquakeInfo() {
                 </HStack>
               </ListItem>
             </MotionBox>
-            
+
             <Divider />
-            
+
             <MotionBox variants={itemVariants}>
               <ListItem>
                 <HStack spacing={4} align="flex-start">
@@ -644,13 +647,13 @@ function EarthquakeInfo() {
                     align="center"
                     justify="center"
                     borderRadius="full"
-                    bg={`green.50`}
-                    color={`green.500`}
+                    bg="green.50"
+                    color="green.500"
                     mt={1}
                     transition="all 0.3s"
                     _groupHover={{
-                      transform: "scale(1.05)",
-                      bg: "green.100"
+                      transform: 'scale(1.05)',
+                      bg: 'green.100',
                     }}
                   >
                     <Icon as={FaMapMarkerAlt} boxSize={5} />
@@ -662,8 +665,8 @@ function EarthquakeInfo() {
                     <Text fontWeight="semibold" color={textColor} fontSize="md">
                       {latestEarthquake.Wilayah}
                     </Text>
-                    <Link 
-                      href={`https://www.google.com/maps/search/?api=1&query=${latestEarthquake.Coordinates}`} 
+                    <Link
+                      href={`https://www.google.com/maps/search/?api=1&query=${latestEarthquake.Coordinates}`}
                       isExternal
                       color="blue.500"
                       fontSize="xs"
@@ -680,7 +683,7 @@ function EarthquakeInfo() {
               </ListItem>
             </MotionBox>
           </List>
-          
+
           <MotionButton
             as={motion.button}
             mt={8}
@@ -692,10 +695,10 @@ function EarthquakeInfo() {
             borderRadius="xl"
             py={6}
             boxShadow="0px 10px 25px -5px rgba(66, 153, 225, 0.4)"
-            _hover={{ 
+            _hover={{
               bgGradient: 'linear-gradient(135deg, #3182CE, #2C5282)',
               transform: 'translateY(-2px)',
-              boxShadow: '0px 20px 25px -5px rgba(66, 153, 225, 0.5)'
+              boxShadow: '0px 20px 25px -5px rgba(66, 153, 225, 0.5)',
             }}
             leftIcon={<Icon as={FaSyncAlt} />}
             onClick={() => fetchEarthquakes(true)}

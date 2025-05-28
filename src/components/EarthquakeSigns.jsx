@@ -50,10 +50,15 @@ const colorPalette = {
   accent: '#1D242B',
   lightGradient: 'linear-gradient(135deg, #E6FFFA 0%, #EBF8FF 100%)',
   darkGradient: 'linear-gradient(135deg, rgba(23, 25, 35, 0.9) 0%, rgba(27, 32, 44, 0.9) 100%)',
-  glassLight: 'rgba(255, 255, 255, 0.7)',
-  glassDark: 'rgba(26, 32, 44, 0.7)',
-  glassBorderLight: '1px solid rgba(255, 255, 255, 0.2)',
-  glassBorderDark: '1px solid rgba(255, 255, 255, 0.05)',
+  gradientBlue: 'linear-gradient(135deg, #4299E1, #0077C0)',
+  gradientPurple: 'linear-gradient(135deg, #9F7AEA, #553C9A)',
+  gradientGreen: 'linear-gradient(135deg, #68D391, #38A169)',
+  gradientOrange: 'linear-gradient(135deg, #F6AD55, #DD6B20)',
+  glassLight: 'rgba(255, 255, 255, 0.8)',
+  glassDark: 'rgba(26, 32, 44, 0.8)',
+  glassBorderLight: '1px solid rgba(255, 255, 255, 0.3)',
+  glassBorderDark: '1px solid rgba(255, 255, 255, 0.1)',
+  shimmer: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
 };
 
 /**

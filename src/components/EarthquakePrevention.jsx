@@ -84,10 +84,15 @@ const colorPalette = {
   highlight: '#0077C0',
   accent: '#1D242B',
   gradient: 'linear-gradient(to right, #4299E1, #0077C0)',
-  glassLight: 'rgba(255, 255, 255, 0.7)',
-  glassDark: 'rgba(26, 32, 44, 0.7)',
-  glassBorderLight: '1px solid rgba(255, 255, 255, 0.2)',
-  glassBorderDark: '1px solid rgba(255, 255, 255, 0.05)',
+  gradientRed: 'linear-gradient(135deg, #FC8181, #E53E3E)',
+  gradientBlue: 'linear-gradient(135deg, #4299E1, #0077C0)',
+  gradientGreen: 'linear-gradient(135deg, #68D391, #38A169)',
+  gradientPurple: 'linear-gradient(135deg, #9F7AEA, #553C9A)',
+  glassLight: 'rgba(255, 255, 255, 0.8)',
+  glassDark: 'rgba(26, 32, 44, 0.8)',
+  glassBorderLight: '1px solid rgba(255, 255, 255, 0.3)',
+  glassBorderDark: '1px solid rgba(255, 255, 255, 0.1)',
+  shimmer: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
 };
 
 const getActionImage = (action) => {
@@ -521,7 +526,7 @@ function EarthquakePrevention() {
                 right="0"
                 bottom="0"
                 opacity="0"
-                bg="linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.2) 50%, transparent 80%)"
+                bg={colorPalette.shimmer}
                 zIndex="2"
                 pointerEvents="none"
                 transition="all 0.6s ease"

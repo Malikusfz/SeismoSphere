@@ -279,7 +279,7 @@ function EarthquakeTable() {
                 borderColor={borderColor}
                 bg={selectedRow === index ? rowSelectedBgColor : cardBgColor}
                 boxShadow={cardShadow}
-                position="relative"
+Improve the UI and style modern                position="relative"
                 overflow="hidden"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
